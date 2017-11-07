@@ -2,15 +2,20 @@ package com.company;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) throws  IOException {
         String secStr;
+        ArrayList<String > lineList;
+        ArrayList<String > wordList;
 
         System.out.println("Введите последовательность символов для поиска слов: ");
         secStr = inConsole().trim();
-        writeInFile(containsArrayWord(splitArrayWord(readOutFile()), secStr));
+        lineList = readOutFile();
+        wordList = splitArrayWord(lineList);
+        writeInFile(containsArrayWord(wordList, secStr));
         System.out.println("Работа завершена");
     }
 
@@ -39,8 +44,8 @@ public class Main {
 
     static void writeInFile (ArrayList<String> arrayStr) throws  IOException{
         try (PrintWriter pw = new PrintWriter("text_1_10_wr.txt")) {
-            for (String i : arrayStr){
-                pw.println(i);
+            for (String line : arrayStr){
+                pw.println(line);
             }
         }
         catch (FileNotFoundException e){
@@ -51,20 +56,20 @@ public class Main {
     static ArrayList<String> splitArrayWord (ArrayList<String> arrayLine) {
         ArrayList<String> arrayWord = new ArrayList<>();
 
-        for (String i : arrayLine) {
-            for (String j : i.split(" ")){
-                arrayWord.add(j);
+        for (String line : arrayLine) {
+            for (String word : line.split(" ")){
+                arrayWord.add(word);
             }
         }
         return arrayWord;
     }
 
-    static ArrayList<String> containsArrayWord (ArrayList<String> arrayWord, CharSequence s ) {
+    static ArrayList<String> containsArrayWord (ArrayList<String> arrayWord, CharSequence sequence ) {
         ArrayList<String> arrayContWord = new ArrayList<>();
 
-        for (String i : arrayWord) {
-            if (i.contains(s)) {
-                arrayContWord.add(i);
+        for (String word : arrayWord) {
+            if (word.contains(sequence)) {
+                arrayContWord.add(word);
             }
         }
         return arrayContWord;
