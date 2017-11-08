@@ -42,9 +42,10 @@ public class Main {
     }
 
     static void writeInFile (ArrayList<String> arrayStr) throws  IOException{
-        try (PrintWriter pw = new PrintWriter("text_1_10_wr.txt")) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("text_1_10_wr.txt"))) {
             for (String line : arrayStr){
-                pw.println(line);
+                bw.write(line);
+                bw.newLine();
             }
         }
         catch (FileNotFoundException e){
